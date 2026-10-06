@@ -218,7 +218,9 @@ h2 {
   text-decoration: none;
 }
 
-.game-media img {
+.game-media img,
+.game-media video {
+  display: block;
   width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
@@ -226,7 +228,9 @@ h2 {
 }
 
 .game-media:hover img,
-.game-media:focus-visible img {
+.game-media:focus-visible img,
+.game-media:hover video,
+.game-media:focus-visible video {
   transform: scale(1.018);
   filter: brightness(1.05);
 }
@@ -498,7 +502,8 @@ h2 {
 }
 
 
-.game-card-secondary .game-media img {
+.game-card-secondary .game-media img,
+.game-card-secondary .game-media video {
   aspect-ratio: 16 / 9;
 }
 
