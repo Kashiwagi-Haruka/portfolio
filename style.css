@@ -20,15 +20,39 @@ html {
 }
 
 body {
+  position: relative;
+  isolation: isolate;
   margin: 0;
-  background:
-    linear-gradient(rgba(34, 46, 84, 0.56), rgba(34, 46, 84, 0.72)),
-    url("./site-background.png") center / cover fixed no-repeat;
   background-color: #6a91d3;
   color: var(--text);
   font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
   line-height: 1.8;
   letter-spacing: 0.02em;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(34, 46, 84, 0.56), rgba(34, 46, 84, 0.72)),
+    url("./site-background.png");
+  background-repeat: repeat-x, repeat-x;
+  background-position: 0 0, 0 center;
+  background-size: auto 100%, auto 100vh;
+  animation: backgroundLoop 55s linear infinite;
+}
+
+@keyframes backgroundLoop {
+  from {
+    background-position: 0 0, 0 center;
+  }
+
+  to {
+    background-position: 0 0, -1648px center;
+  }
 }
 
 a {
@@ -131,6 +155,68 @@ h1,
 h2 {
   font-weight: 400;
   letter-spacing: 0.03em;
+  animation: headingGlitch 5.2s infinite;
+}
+
+@keyframes headingGlitch {
+  0%,
+  86%,
+  95%,
+  100% {
+    transform: translate(0, 0) skewX(0deg);
+    text-shadow: none;
+    filter: none;
+  }
+
+  87% {
+    transform: translate(-3px, 0) skewX(-1deg);
+    text-shadow:
+      3px 0 rgba(120, 235, 255, 0.85),
+      -3px 0 rgba(255, 90, 190, 0.75);
+  }
+
+  88% {
+    transform: translate(2px, -1px) skewX(1deg);
+    text-shadow:
+      -2px 0 rgba(120, 235, 255, 0.8),
+      3px 0 rgba(255, 90, 190, 0.7);
+  }
+
+  89% {
+    transform: translate(-1px, 1px) skewX(-0.5deg);
+    text-shadow:
+      4px 0 rgba(120, 235, 255, 0.7),
+      -2px 0 rgba(255, 90, 190, 0.65);
+    filter: contrast(1.08);
+  }
+
+  90% {
+    transform: translate(3px, 0) skewX(0.8deg);
+    text-shadow:
+      -3px 0 rgba(120, 235, 255, 0.75),
+      2px 0 rgba(255, 90, 190, 0.7);
+  }
+
+  91% {
+    transform: translate(-2px, 0) skewX(-0.8deg);
+    text-shadow:
+      2px 0 rgba(120, 235, 255, 0.65),
+      -4px 0 rgba(255, 90, 190, 0.6);
+  }
+
+  92% {
+    transform: translate(1px, 0) skewX(0.4deg);
+    text-shadow:
+      -2px 0 rgba(120, 235, 255, 0.55),
+      2px 0 rgba(255, 90, 190, 0.5);
+  }
+
+  93%,
+  94% {
+    transform: translate(0, 0) skewX(0deg);
+    text-shadow: none;
+    filter: none;
+  }
 }
 
 h1 {
@@ -652,5 +738,14 @@ h2 {
 @media (max-width: 800px) {
   .illustration-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  body::before,
+  h1,
+  h2 {
+    animation: none;
   }
 }
